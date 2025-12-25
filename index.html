@@ -194,31 +194,47 @@
 
         // Fungsi Render Siswa
         // Fungsi Render Siswa (Versi Compact)
-        function renderSiswa() {
+         function renderSiswa() {
             if (!studentContainer) return;
             let cards = '';
+
             dataSiswa.forEach((siswa, index) => {
                 const urlFoto = `${folderFotoSiswa}${index + 1}${ekstensiFoto}`;
 
+                // --- LOGIKA BARU UNTUK INSTAGRAM ---
+                // 1. Cek apakah siswa punya data 'ig'?
+                // 2. Jika ada, masukkan linknya. Jika tidak ada, kosongkan ('#').
+                const linkIG = siswa.ig ? siswa.ig : '#';
+
+                // 3. Jika tidak punya IG, tombolnya kita sembunyikan (pakai class 'hidden') biar rapi
+                const displayButton = siswa.ig ? '' : 'hidden';
+
                 cards += `
-    <div
-        class="card w-full shadow-xl hover:scale-105 transition-transform duration-300 bg-black/40 backdrop-blur-md border border-white/10 text-white">
-        <figure class="h-48 overflow-hidden bg-white/5 relative">
-            <img src="${urlFoto}" alt="${siswa.nama}" class="w-full h-full object-cover" loading="lazy"
-                onerror="this.src='https://via.placeholder.com/300?text=No+Image'" />
-        </figure>
-        <div class="card-body p-3 text-center items-center">
-            <h2 class="card-title text-base font-bold leading-tight">${siswa.nama}</h2>
-            <div class="badge badge-white badge-outline badge-sm text-[10px] py-2">${siswa.role}</div>
-            <p class="text-xs italic text-gray-300 mt-1 line-clamp-2">"${siswa.Motivasi}"</p>
-            <div class="card-actions justify-end mt-2">
-                <button class="btn btn-sm btn-ghost text-white"><i class="fab fa-instagram text-xl"></i></button>
+        <div class="card w-full shadow-xl hover:scale-105 transition-transform duration-300 bg-black/40 backdrop-blur-md border border-white/10 text-white">
+            <figure class="h-48 overflow-hidden bg-white/5 relative">
+                <img src="${urlFoto}" 
+                     alt="${siswa.nama}" 
+                     class="w-full h-full object-cover object-top" 
+                     loading="lazy"
+                     onerror="this.src='https://via.placeholder.com/300?text=No+Image'" />
+            </figure>
+            
+            <div class="card-body p-3 text-center items-center">
+                <h2 class="card-title text-base font-bold leading-tight">${siswa.nama}</h2>
+                <div class="badge badge-primary badge-outline badge-sm text-[10px] py-2">${siswa.role}</div>
+                <p class="text-xs italic text-gray-300 mt-1 line-clamp-2">"${siswa.Motivasi}"</p>
+                
+                <div class="card-actions justify-center mt-2 w-full gap-2">
+                    <a href="${linkIG}" target="_blank" class="btn btn-sm btn-ghost text-white ${displayButton}">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-    </div>`;
+        </div>`;
             });
             studentContainer.innerHTML = cards;
         }
+
 
         // Fungsi Render Album
         function renderAlbums() {
@@ -286,5 +302,6 @@
 
 
 </html>
+
 
 
