@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREAT SCIENTIST - XII MIPA 2</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base' });
+    </script>
+</head>
+
+<body class="font-sans antialiased overflow-x-hidden bg-gray-900">
+
+    <div class="parallax cover min-h-screen flex flex-col relative text-white">
+        <nav class="navbar fixed top-0 w-full h-20 z-50 glass-nav px-2 md:px-4 transition-all duration-300">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h7" />
+                        </svg>
+                    </div>
+                    <ul tabindex="-1"
+                        class="menu menu-sm dropdown-content bg-black/90 backdrop-blur-md rounded-box z-[1] mt-3 w-52 p-2 shadow text-white">
+                        <li><a href="#">Homepage</a></li>
+                        <li><a href="#student-container">Anggota</a></li>
+                        <li><a href="#structur-container">Structur</a></li>
+                        <li><a href="#album-container">Galeri</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-center">
+                <a class="btn btn-ghost text-xl tracking-widest flex items-center gap-2">
+                    <img src="ipa2.jpeg" class="h-10 w-10 rounded-full border border-white/20"
+                        onerror="this.style.display='none'" />
+                    <span class="hidden md:inline">GREAT SCIENTIST</span>
+                </a>
+            </div>
+            <div class="navbar-end"></div>
+        </nav>
+
+        <div class="container mx-auto flex flex-col justify-center items-center text-center px-4 pt-32 flex-grow">
+            <h1 class="text-4xl md:text-7xl font-bold mb-4 leading-tight drop-shadow-lg">12 MIPA 2<br><span
+                    class="text-primary">2024-2025</span></h1>
+            <p class="text-lg md:text-2xl italic opacity-90 max-w-2xl">"Science without religion is lame, religion
+                without science is blind"</p>
+        </div>
+
+        <div class="w-full flex justify-center px-4 pb-10 z-10">
+            <div class="card lg:card-side glass shadow-2xl w-full max-w-4xl text-white">
+                <figure class="lg:w-1/3 h-64 lg:h-auto overflow-hidden">
+                    <img src="wali-kelas.jpg" class="w-full h-full object-cover" alt="Wali Kelas"
+                        onerror="this.src='https://via.placeholder.com/400?text=Wali+Kelas'" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title text-3xl font-bold text-yellow-400">WALI KELAS</h2>
+                    <p class="text-xl font-medium">Mughofar, S.Pd</p>
+                    <p class="opacity-80">"Mendidik generasi sains dengan akhlak mulia."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="parallax cover2 py-10">
+        <div class="container mx-auto mb-6 text-center px-4">
+            <h2 class="text-5xl font-bold text-white drop-shadow-md mb-3">ANGGOTA KELAS</h2>
+            <div class="h-2 w-48 bg-white mx-auto rounded"></div>
+        </div>
+        <section id="student-container"
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4 max-w-7xl mx-auto">
+        </section>
+    </div>
+
+    <div class="parallax cover4 py-20">
+        <div class="container mx-auto px-5">
+            <h2 class="text-4xl font-bold text-center text-white mb-10 drop-shadow-md">Album Kenangan</h2>
+            <div id="album-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+        </div>
+    </div>
+
+    <dialog id="album_modal" class="modal backdrop-blur-md">
+        <div
+            class="modal-box w-11/12 max-w-6xl bg-gray-900 border border-gray-700 h-[90vh] flex flex-col p-0 overflow-hidden">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-black/50">
+                <h3 id="modal-title" class="font-bold text-xl text-white">Nama Album</h3>
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost text-white hover:bg-red-500">✕</button>
+                </form>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 bg-black/80">
+                <div id="modal-content" class="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <script>
+        // --- 1. CONFIGURATION ---
+        const folderFotoSiswa = "assets/foto_siswa/"; // Pastikan folder ini ada
+        const basePathGaleri = "assets/galeri/"; // Pastikan folder ini ada
+        const ekstensiFoto = ".jpeg"; // Cek apakah filemu .jpg atau .jpeg
+
+        // --- 2. DATA SISWA ---
+        const dataSiswa = [
+            { nama: "Aditya Gunawan", role: "Wakil Ketua", Motivasi: "Never give up" },
+            { nama: "Alfi Nurpadilah", role: "Anggota", Motivasi: "Do your best" },
+            { nama: "Noval Mauladani", role: "Ketua Kelas", Motivasi: "Lead by example" },
+            { nama: "Anna Zham-Zham", role: "Seksi Kebersihan", Motivasi: "Motivasi" },
+            { nama: "Atika Thohariyyah", role: "Bendahara", Motivasi: "Motivasi" },
+            { nama: "Aydil Fitran", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Farid Ramadhani", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Fariz Alwasi", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Ghina Maulani", role: "Anggota" },
+            { nama: "Ilham Fauzan Nur Arifin", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Indas Febi Anggraeni", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Lia Aprialiani", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Maudy Aprelia", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Meysa Nurul Fazri", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Muhammad Alfian Holidi", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Muhammad Rizky Al Azmy T", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Muhammad Iyaas Fauzi Irwan Siri", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Najwa Meilani", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Nova Dzalsa Khairunnisa", role: "Sekretaris", Motivasi: "Saat dunia memberimu seribu beban untuk menyerah, makan temukan satu alasan untuk terus melangkah" },
+            { nama: "Noval Mauladani", role: "Ketua Kelas", Motivasi: "Motivasi" },
+            { nama: "Noviyanti Syahrani", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Nurmalasari", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Rai Adinu Rifa'i", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Raya Refanda Je Angiyi", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Reza Fachri Ramdani", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Rheyna Cindy Azzahra", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Rifki Abdillah", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Ryani Anggraeni", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Salwa Meisya Nabilah", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Sana Meilana", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Sarah Mauziah", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Satria Gunawan", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Silvia Zakiyati", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Syulis Syamsiah", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Tegar Bintang Pamungkas", role: "Anggota", Motivasi: "Motivasi" },
+            { nama: "Winda Febrianti", role: "Anggota" },
+            // ... Masukkan sisa data siswa di sini ...
+        ];
+
+        // --- 3. DATA ALBUM ---
+        const dataAlbum = [
+            {
+                judul: "Study Tour Jogja",
+                folder: "study_tour",
+                cover: "1.jpeg",
+                deskripsi: "Kenangan di Malioboro.",
+                isi: ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg"]
+            },
+            {
+                judul: "Classmeeting",
+                folder: "classmeet",
+                cover: "1.jpeg",
+                deskripsi: "Lomba antar kelas.",
+                isi: ["1.jpeg", "2.jpeg"]
+            },
+            {
+                judul: "Hari Guru",
+                folder: "hari_guru",
+                cover: "1.jpeg",
+                deskripsi: "Kejutan buat Wali Kelas tersayang.",
+                isi: ["1.jpeg", "2.jpeg"]
+            },
+            {
+                judul: "Hari Guru",
+                folder: "hari_guru",
+                cover: "1.jpeg",
+                deskripsi: "Kejutan buat Wali Kelas tersayang.",
+                isi: ["1.jpeg", "2.jpeg"]
+            }
+        ];
+
+        // --- 4. RENDER FUNCTIONS ---
+        const studentContainer = document.getElementById('student-container');
+        const albumContainer = document.getElementById('album-container');
+
+        // Fungsi Render Siswa
+        // Fungsi Render Siswa (Versi Compact)
+        function renderSiswa() {
+            if (!studentContainer) return;
+            let cards = '';
+            dataSiswa.forEach((siswa, index) => {
+                const urlFoto = `${folderFotoSiswa}${index + 1}${ekstensiFoto}`;
+
+                cards += `
+    <div
+        class="card w-full shadow-xl hover:scale-105 transition-transform duration-300 bg-black/40 backdrop-blur-md border border-white/10 text-white">
+        <figure class="h-48 overflow-hidden bg-white/5 relative">
+            <img src="${urlFoto}" alt="${siswa.nama}" class="w-full h-full object-cover object-top" loading="lazy"
+                onerror="this.src='https://via.placeholder.com/300?text=No+Image'" />
+        </figure>
+        <div class="card-body p-3 text-center items-center">
+            <h2 class="card-title text-base font-bold leading-tight">${siswa.nama}</h2>
+            <div class="badge badge-white badge-outline badge-sm text-[10px] py-2">${siswa.role}</div>
+            <p class="text-xs italic text-gray-300 mt-1 line-clamp-2">"${siswa.Motivasi}"</p>
+            <div class="card-actions justify-end mt-2">
+                <button class="btn btn-sm btn-ghost text-white"><i class="fab fa-instagram text-xl"></i></button>
+            </div>
+        </div>
+    </div>`;
+            });
+            studentContainer.innerHTML = cards;
+        }
+
+        // Fungsi Render Album
+        function renderAlbums() {
+            if (!albumContainer) return;
+            let htmlContent = '';
+            dataAlbum.forEach((album, index) => {
+                const coverPath = `${basePathGaleri}${album.folder}/${album.cover}`;
+                htmlContent += `
+    <div class="card bg-base-100 shadow-xl image-full hover:scale-[1.02] transition-transform duration-300 cursor-pointer group"
+        onclick="bukaAlbum(${index})">
+        <figure><img src="${coverPath}" alt="${album.judul}" class="w-full h-64 object-cover"
+                onerror="this.src='https://via.placeholder.com/400x300?text=No+Cover'" /></figure>
+        <div class="card-body justify-end p-5">
+            <h2 class="card-title text-white text-2xl drop-shadow-md"><i
+                    class="fas fa-folder-open text-yellow-400 mr-2"></i> ${album.judul}</h2>
+            <p class="text-gray-200 text-sm">${album.deskripsi}</p>
+            <div class="badge badge-outline text-white mt-2">${album.isi.length} Foto</div>
+        </div>
+    </div>`;
+            });
+            albumContainer.innerHTML = htmlContent;
+        }
+
+        // Fungsi Buka Modal
+        window.bukaAlbum = function (index) {
+            const album = dataAlbum[index];
+            const modal = document.getElementById('album_modal');
+            document.getElementById('modal-title').innerText = album.judul;
+
+            let photosHtml = '';
+            album.isi.forEach(fotoFile => {
+                const fullPath = `${basePathGaleri}${album.folder}/${fotoFile}`;
+                photosHtml += `
+    <div class="mb-4 break-inside-avoid">
+        <div class="rounded-lg overflow-hidden border border-gray-700 group relative">
+            <img src="${fullPath}" class="w-full h-auto" loading="lazy" alt="Foto">
+            <div
+                class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <a href="${fullPath}" target="_blank" class="btn btn-sm btn-circle btn-ghost text-white"><i
+                        class="fas fa-expand"></i></a>
+            </div>
+        </div>
+    </div>`;
+            });
+            document.getElementById('modal-content').innerHTML = photosHtml;
+            modal.showModal();
+        }
+
+        // Eksekusi saat load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSiswa();
+            renderAlbums();
+        });
+    </script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base', // Menggunakan tema base agar warna custom (classDef) Anda bekerja maksimal
+            securityLevel: 'loose', // Diperlukan agar tag <br/> berfungsi dengan baik
+        });
+    </script>
+</body>
+
+</html>

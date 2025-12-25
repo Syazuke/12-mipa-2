@@ -1,0 +1,43 @@
+*, html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+.parallax {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; /* Tambahkan titik koma di sini */
+    
+    /* Default untuk HP (supaya tidak berat/patah-patah) */
+    background-attachment: scroll; 
+    min-height: 100vh; /* Wajib ada tinggi agar gambar muncul */
+}
+
+/* Ubah 100px menjadi 768px (ukuran Tablet/iPad). 
+   100px terlalu kecil, nanti di HP tetap jadi 'fixed' dan bikin nge-lag. */
+@media (min-width: 768px) {
+    .parallax {
+        background-attachment: fixed;
+    }
+}
+
+/* Pastikan path gambar benar. Jika gambar ada di folder assets, tulis 'assets/nama.jpg' */
+.cover {
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('bg/12mipa2.png');
+}
+
+.cover2 {
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bg/kelas.jpeg');
+}
+
+.cover4 {
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('bg/1.jpeg');
+}
+
+.glass-nav {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
